@@ -182,8 +182,8 @@ public class Ventana extends javax.swing.JFrame {
 
 
 
-        }catch(Exception x){
-            JOptionPane.showMessageDialog(null, x.getMessage().toString());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
        
@@ -199,8 +199,8 @@ public class Ventana extends javax.swing.JFrame {
             st.execute();
             JOptionPane.showMessageDialog(null, "Dato insertardo correctamente.");
 
-        }catch(Exception x){
-            JOptionPane.showMessageDialog(null, x.getMessage().toString());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
         
@@ -209,7 +209,7 @@ public class Ventana extends javax.swing.JFrame {
     private void bBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBorrarActionPerformed
 
 
- try{
+        try{
 
             PreparedStatement st = connect.prepareStatement("DELETE FROM Legend WHERE ID=?");
             st.setInt(1, Integer.parseInt(JOptionPane.showInputDialog("Introduce o número de matrícula do alumno que queres eliminar: ")));
@@ -217,8 +217,8 @@ public class Ventana extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Dato eliminado correctamente.");
 
 
-        }catch(Exception x){
-            JOptionPane.showMessageDialog(null, x.getMessage().toString());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }//GEN-LAST:event_bBorrarActionPerformed
@@ -240,8 +240,8 @@ public class Ventana extends javax.swing.JFrame {
 
 
 
-        }catch(Exception x){
-            JOptionPane.showMessageDialog(null, x.getMessage().toString());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
 
     }//GEN-LAST:event_bActualizarActionPerformed
@@ -277,8 +277,8 @@ public class Ventana extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Nome editado con éxito.");
 
 
-        }catch(Exception x){
-            JOptionPane.showMessageDialog(null, x.getMessage().toString());
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
         
     }//GEN-LAST:event_bEditarActionPerformed
