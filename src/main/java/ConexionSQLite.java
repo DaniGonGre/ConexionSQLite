@@ -1,9 +1,12 @@
+package conexionsqlite;
+ 
 public class ConexionSQLite {
-
-    public static void main(String[] args) {
-
-        Alumno alumno = new Alumno("Atxy2k", "SerProgramador.es");
+ 
+   public static void main ( String args[] ){
+ 
+      Ventana obx = new Ventana();
+      obx.setVisible(true);
 
     }
-
+    
 }
