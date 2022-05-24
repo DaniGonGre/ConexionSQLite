@@ -36,8 +36,9 @@ public class Ventana extends javax.swing.JFrame {
         bBorrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        bCrearTabla = new javax.swing.JButton();
+        bActualizar = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
+        bEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,10 +80,10 @@ public class Ventana extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        bCrearTabla.setText("ACTUALIZAR");
-        bCrearTabla.addActionListener(new java.awt.event.ActionListener() {
+        bActualizar.setText("ACTUALIZAR");
+        bActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCrearTablaActionPerformed(evt);
+                bActualizarActionPerformed(evt);
             }
         });
 
@@ -93,32 +94,38 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        bEditar.setText("EDITAR");
+        bEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bConectar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(bSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(bInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bCrearTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 3, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(bInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(bActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,13 +135,14 @@ public class Ventana extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bConectar)
-                    .addComponent(bSalir))
+                    .addComponent(bSalir)
+                    .addComponent(bEditar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bConsultar)
                     .addComponent(bBorrar)
                     .addComponent(bInsertar)
-                    .addComponent(bCrearTabla))
+                    .addComponent(bActualizar))
                 .addContainerGap())
         );
 
@@ -162,10 +170,11 @@ public class Ventana extends javax.swing.JFrame {
         ResultSet resultado=null;
 
         try{
+            String id = JOptionPane.showInputDialog("Introduce o número de matrícula: ");
 
-            PreparedStatement sentencia = connect.prepareStatement("select ID,Nombre from Legend");
+            PreparedStatement sentencia = connect.prepareStatement("select*from Legend where ID= " + id);
             resultado= sentencia.executeQuery();
-
+            
             while(resultado.next()){
                 model.addRow (new Object[]{resultado.getInt("ID"),resultado.getString("Nombre")});
 
@@ -184,9 +193,9 @@ public class Ventana extends javax.swing.JFrame {
 
         try{
 
-            PreparedStatement st = connect.prepareStatement("insert into Legend(ID,Nombre) values(?,?)");
-            st.setInt(1, Integer.parseInt(JOptionPane.showInputDialog("Introduce o ID da persoa que queras insertar: ")));
-            st.setString(2,JOptionPane.showInputDialog("Introduce o nome da persoa que queras insertar: "));
+            PreparedStatement st = connect.prepareStatement("INSERT INTO Legend(ID,Nombre) VALUES(?,?)");
+            st.setInt(1, Integer.parseInt(JOptionPane.showInputDialog("Introduce o número da matrícula do alumno que queres insertar: ")));
+            st.setString(2,JOptionPane.showInputDialog("Introduce o nome do alumno que queres insertar: "));
             st.execute();
             JOptionPane.showMessageDialog(null, "Dato insertardo correctamente.");
 
@@ -202,8 +211,8 @@ public class Ventana extends javax.swing.JFrame {
 
  try{
 
-            PreparedStatement st = connect.prepareStatement("delete from Legend where ID=?");
-            st.setInt(1, Integer.parseInt(JOptionPane.showInputDialog("Introduce o ID da persoa que queras eliminar: ")));
+            PreparedStatement st = connect.prepareStatement("DELETE FROM Legend WHERE ID=?");
+            st.setInt(1, Integer.parseInt(JOptionPane.showInputDialog("Introduce o número de matrícula do alumno que queres eliminar: ")));
             st.execute();
             JOptionPane.showMessageDialog(null, "Dato eliminado correctamente.");
 
@@ -214,14 +223,14 @@ public class Ventana extends javax.swing.JFrame {
 
     }//GEN-LAST:event_bBorrarActionPerformed
 
-    private void bCrearTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCrearTablaActionPerformed
+    private void bActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActualizarActionPerformed
 
          model.setRowCount(0);
         ResultSet resul=null;
 
         try{
 
-            PreparedStatement st = connect.prepareStatement("select ID,Nombre from Legend");
+            PreparedStatement st = connect.prepareStatement("SELECT ID,Nombre from Legend");
             resul= st.executeQuery();
 
             while(resul.next()){
@@ -235,7 +244,7 @@ public class Ventana extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, x.getMessage().toString());
         }
 
-    }//GEN-LAST:event_bCrearTablaActionPerformed
+    }//GEN-LAST:event_bActualizarActionPerformed
 
     private void bSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSalirActionPerformed
         
@@ -250,6 +259,29 @@ public class Ventana extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_bSalirActionPerformed
+
+    private void bEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditarActionPerformed
+
+        model.setRowCount(0);
+        ResultSet resultado=null;
+
+        try{
+            String id = JOptionPane.showInputDialog("Introduce o número de matrícula do alumno que queres modificar: ");
+            String newAlumno = JOptionPane.showInputDialog("Introduce o novo nome do alumno: ");
+
+            PreparedStatement sentencia = connect.prepareStatement("update Legend set Nombre = " + newAlumno +
+                    " where ID= " + id);
+            resultado= sentencia.executeQuery();
+            
+            
+        JOptionPane.showMessageDialog(null, "Nome editado con éxito.");
+
+
+        }catch(Exception x){
+            JOptionPane.showMessageDialog(null, x.getMessage().toString());
+        }
+        
+    }//GEN-LAST:event_bEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,10 +319,11 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bActualizar;
     private javax.swing.JButton bBorrar;
     private javax.swing.JButton bConectar;
     private javax.swing.JButton bConsultar;
-    private javax.swing.JButton bCrearTabla;
+    private javax.swing.JButton bEditar;
     private javax.swing.JButton bInsertar;
     private javax.swing.JButton bSalir;
     private javax.swing.JScrollPane jScrollPane1;
