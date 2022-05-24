@@ -53,12 +53,35 @@ import java.util.logging.Logger;
                     System.out.print("Apellidos: ");
                     System.out.println(result.getString("apellidos"));
 
-                    System.out.println("=======================");
                 }
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
             }
         }
+        
+        public void borrarAlumno(){
+            
+            try {
+                connect = DriverManager.getConnection(url);
+
+                Statement st = (Statement) connect.createStatement();
+                /*
+                 // borra un usuario en concreto
+                 st.execute("DELETE * FROM alumnos WHERE id='1'");
+
+                // borra todos los usuarios
+                st.execute("DELETE * FROM alumnos");
+
+                // borra la tabla users
+                st.execute("DELETE TABLE alumnos");
+                */
+            } catch (Throwable e)  {
+                System.out.println("Ha fallado el borrado de datos");
+                e.printStackTrace();
+            } finally {
+                try { connect.close(); }
+            catch (Throwable t){}
+            }
 
     }
 
