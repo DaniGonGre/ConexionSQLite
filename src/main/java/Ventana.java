@@ -1,11 +1,14 @@
 package conexionsqlite;
 
 import java.awt.HeadlessException;
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -261,17 +264,17 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_bSalirActionPerformed
 
     private void bEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEditarActionPerformed
-
+        
         model.setRowCount(0);
         ResultSet resultado=null;
 
         try{
             String id = JOptionPane.showInputDialog("Introduce o número de matrícula do alumno que queres modificar: ");
-            String newAlumno = JOptionPane.showInputDialog("Introduce o novo nome do alumno: ");
 
-            PreparedStatement sentencia = connect.prepareStatement("update Legend set Nombre = " + newAlumno +
-                    " where ID= " + id);
-            resultado= sentencia.executeQuery();
+            PreparedStatement sentencia = connect.prepareStatement("UPDATE Legend SET Nombre= ? WHERE ID= " + id);
+            sentencia.setString(1, JOptionPane.showInputDialog("Introduce o novo nome do alumno: "));
+            
+            int retorno = sentencia.executeUpdate();
             
             
         JOptionPane.showMessageDialog(null, "Nome editado con éxito.");
